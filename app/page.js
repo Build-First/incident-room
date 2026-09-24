@@ -61,6 +61,19 @@ export default function LeDossier() {
     setBusy("");
   }
 
+  async function publish() {
+    setBusy("publish");
+    const response = await fetch("/api/publish", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ report: report.text }),
+    });
+    const data = await response.json();
+    if (data.id) window.location.href = `/rapport/${data.id}`;
+    else setReport({ stub: true, text: data.error });
+    setBusy("");
+  }
+
   async function writeReport() {
     setBusy("report");
     setReport(null);
@@ -200,17 +213,21 @@ export default function LeDossier() {
               <>
                 <div className={report.stub ? "out stub" : "out"}>{report.text}</div>
                 {!report.stub && (
-                  <button
-                    className="btn quiet"
-                    style={{ marginTop: "0.9rem" }}
-                    onClick={() => {
-                      navigator.clipboard.writeText(report.text);
-                      setCopied(true);
-                      setTimeout(() => setCopied(false), 2000);
-                    }}
-                  >
-                    {copied ? "Copied" : "Copy the report"}
-                  </button>
+                  <div className="publish-row">
+                    <button className="btn" onClick={publish} disabled={busy === "publish"}>
+                      {busy === "publish" ? "Publishing…" : "Publish, and get a link"}
+                    </button>
+                    <button
+                      className="btn quiet"
+                      onClick={() => {
+                        navigator.clipboard.writeText(report.text);
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 2000);
+                      }}
+                    >
+                      {copied ? "Copied" : "Copy the text"}
+                    </button>
+                  </div>
                 )}
               </>
             )}

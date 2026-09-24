@@ -188,3 +188,19 @@ select.status {
   border-left: 1px solid var(--line); padding-left: 0.6rem;
 }
 .player .track-link:hover { text-decoration: underline; }
+
+/* ---------- Publish ---------- */
+.publish-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+
+/* ---------- The published report page ---------- */
+.published { max-width: 680px; margin: 0 auto; padding: 5rem 1.5rem; }
+.published .stamp {
+  font-family: ui-monospace, Menlo, monospace; font-size: 0.68rem; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--brass); margin: 0 0 1.2rem;
+}
+.published h1 { font-family: ui-serif, Georgia, serif; font-size: clamp(1.8rem, 5vw, 2.7rem); margin: 0 0 0.6rem; letter-spacing: 0.02em; }
+.published .lede { color: #cfcde0; margin: 0 0 1.6rem; }
+.published code { font-family: ui-monospace, Menlo, monospace; background: rgba(255,255,255,0.1); padding: 0.1em 0.4em; border-radius: 4px; }
+.published .missing { border-left: 3px solid var(--red); padding-left: 1.1rem; color: #cfcde0; }
+.published .back { display: inline-block; margin-top: 2rem; color: var(--brass); text-decoration: none; font-size: 0.9rem; }
+.published .back:hover { text-decoration: underline; }
