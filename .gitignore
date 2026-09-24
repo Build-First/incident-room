@@ -1,0 +1,7 @@
+node_modules
+.next
+.DS_Store
+
+# Anything with a key in it. This line is why your keys stay yours.
+.env
+.env.local
