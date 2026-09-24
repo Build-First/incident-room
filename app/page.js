@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const STATUSES = ["Unverified", "Corroborated", "Dead end", "Key evidence"];
 const SOUNDTRACK = "https://suno.com/song/c51ec285-50d8-4657-aef6-4f6144423f94";
+const TRACK = "The 7 Minute Hack";
 
 export default function LeDossier() {
   // Every clue you add lives in this one variable. This variable lives in the
@@ -17,6 +18,14 @@ export default function LeDossier() {
   const [filter, setFilter] = useState("All");
   const [report, setReport] = useState(null);
   const [busy, setBusy] = useState("");
+  const [playing, setPlaying] = useState(false);
+  const audio = useRef(null);
+
+  function toggleTrack() {
+    const el = audio.current;
+    if (!el) return;
+    if (el.paused) { el.play(); setPlaying(true); } else { el.pause(); setPlaying(false); }
+  }
 
   function addClue(event) {
     event.preventDefault();
@@ -77,7 +86,15 @@ export default function LeDossier() {
         <div className="banner-title">
           <h1>Le Dossier</h1>
           <p>Affaire Apollon &middot; Louvre &middot; Octobre 2025</p>
+          <div className="player">
+            <button className="play" onClick={toggleTrack} aria-label={playing ? "Pause the theme" : "Play the theme"}>
+              {playing ? "❙❙" : "▶"}
+            </button>
+            <span className="track">{TRACK}</span>
+            <a className="track-link" href={SOUNDTRACK} target="_blank" rel="noreferrer">on Suno</a>
+          </div>
         </div>
+        <audio ref={audio} src="/the-7-minute-hack.mp3" onEnded={() => setPlaying(false)} preload="none" />
       </div>
 
       <nav>
@@ -233,9 +250,12 @@ export default function LeDossier() {
             </div>
 
             <h3>The soundtrack</h3>
-            <p>Every investigation needs one.</p>
+            <p>
+              Every investigation needs one. Ours is called <em>{TRACK}</em>, which is
+              also roughly how long they were inside, and roughly how long you get.
+            </p>
             <a className="soundtrack" href={SOUNDTRACK} target="_blank" rel="noreferrer">
-              ▶ Play the theme
+              {TRACK} &middot; on Suno
             </a>
 
             <img className="evidence-art" src="/evidence.jpg" alt="An empty display case, lit from above" />

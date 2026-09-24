@@ -1,7 +1,10 @@
-# The Incident Room
+# Le Dossier — Affaire Apollon
 
-A clue log for the October 2025 Louvre theft. Build First Small Biz Cohort,
-Session 3.
+An evidence board for the October 2025 Louvre theft. Build First Small Biz
+Cohort, Session 3.
+
+You are the investigators. They were inside for about seven minutes, so that is
+roughly how long you get.
 
 It works, and it is deliberately missing two things. Finding out what they are
 is the session.
@@ -21,11 +24,15 @@ Then refresh the page.
 
 ## What's here
 
-- **A clue log.** Each clue has what we know, where it came from, and a status:
-  `Unverified · Corroborated · Dead end · Key evidence`. Add, filter, change,
-  remove.
-- **A "Write the incident report" button.** It presses. It does not work yet,
-  and it will tell you why.
+- **The evidence board.** Each clue has what we know, where it came from, and a
+  status: `Unverified · Corroborated · Dead end · Key evidence`. Add, filter,
+  change, discard.
+- **"Extract clues" from a link.** Paste an article, let it pull the facts out.
+  Presses. Does not work yet, and it will tell you why.
+- **"Établir le rapport".** Writes the police report from corroborated evidence
+  only. Same story.
+- **À propos**, which explains the rules of the game and names both gaps.
+- **The soundtrack.** Play it from the banner.
 
 ## What's missing, and where
 
@@ -34,9 +41,10 @@ variable lives in your browser's memory, which lasts exactly as long as the page
 does. Nothing is saved anywhere. That is why the refresh emptied it, and it is
 sprint 1.
 
-**2. `app/api/report/route.js` has nobody to ask.** Writing a report means your
-app talking to Claude, and your app needs its own key to do that. Your
-subscription is yours, not your app's. That's sprint 2.
+**2. `app/api/report/route.js` and `app/api/extract/route.js` have nobody to
+ask.** Reading an article and writing a report both mean your app talking to
+Claude, and your app needs its own key to do that. Your subscription is yours,
+not your app's. That's sprint 2, and it fixes both buttons at once.
 
 ## Where keys go, when you get there
 
