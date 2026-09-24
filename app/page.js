@@ -19,6 +19,7 @@ export default function LeDossier() {
   const [report, setReport] = useState(null);
   const [busy, setBusy] = useState("");
   const [playing, setPlaying] = useState(false);
+  const [copied, setCopied] = useState(false);
   const audio = useRef(null);
 
   function toggleTrack() {
@@ -195,7 +196,24 @@ export default function LeDossier() {
                 {busy === "report" ? "Writing…" : "Établir le rapport"}
               </button>
             </div>
-            {report && <div className={report.stub ? "out stub" : "out"}>{report.text}</div>}
+            {report && (
+              <>
+                <div className={report.stub ? "out stub" : "out"}>{report.text}</div>
+                {!report.stub && (
+                  <button
+                    className="btn quiet"
+                    style={{ marginTop: "0.9rem" }}
+                    onClick={() => {
+                      navigator.clipboard.writeText(report.text);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    }}
+                  >
+                    {copied ? "Copied" : "Copy the report"}
+                  </button>
+                )}
+              </>
+            )}
           </>
         )}
 
