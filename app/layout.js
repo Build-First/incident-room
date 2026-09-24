@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "The Incident Room",
-  description: "Louvre, October 2025",
+  title: "Le Dossier — Affaire Apollon",
+  description: "An evidence board for the October 2025 Louvre theft.",
 };
 
 import "./globals.css";
