@@ -282,18 +282,6 @@ export default function LeDossier() {
               <li><b>Key evidence</b><span>True, and it changes the picture.</span></li>
             </ul>
 
-            <h3>Why everything starts Unverified</h3>
-            <p>
-              This case is a good argument for it. Early reporting carried numbers and
-              details that later changed. The two accounts given to investigators do
-              not entirely agree with each other. And a claim repeated in forty
-              headlines is still one claim, from one source, forty times.
-            </p>
-            <p>
-              So nothing here is treated as true until something independent says so
-              too, and the report at the end is built only from what survived that.
-            </p>
-
             <h3>Three things this app cannot do yet</h3>
             <div className="missing">
               <p><b>It cannot read.</b> Paste a link and nothing happens, because reading an article is a job for an AI and this app has no key of its own.</p>
