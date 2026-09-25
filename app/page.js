@@ -161,7 +161,7 @@ export default function LeDossier() {
             {shown.length === 0 ? (
               <p className="empty">
                 {clues.length === 0
-                  ? "The board is empty. What does the room remember?"
+                  ? "The evidence board is empty. What does the room remember?"
                   : `Nothing marked ${filter}.`}
               </p>
             ) : (
@@ -268,7 +268,7 @@ export default function LeDossier() {
 
             <h3>How to play</h3>
             <ol className="rules">
-              <li>Find everything you can and put all of it on the board. Do not filter as you go.</li>
+              <li>Find everything you can and put all of it on the evidence board.</li>
               <li>Hand it an article and let it pull the facts out on its own.</li>
               <li>Work out which claims hold up, and mark each one.</li>
               <li>Have it write the report from the evidence that survived.</li>
