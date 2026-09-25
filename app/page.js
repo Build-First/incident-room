@@ -284,20 +284,13 @@ export default function LeDossier() {
 
             <h3>Three things this app cannot do yet</h3>
             <div className="missing">
-              <p><b>It cannot read.</b> Paste a link and nothing happens, because reading an article is a job for an AI and this app has no key of its own.</p>
-              <p><b>It cannot remember.</b> Add clues and refresh the page. Gone. They were only ever in your browser.</p>
-              <p><b>It cannot be shared.</b> Publishing a report means saving it somewhere first, and there is nowhere yet.</p>
+              <ol className="rules">
+                <li><b>It cannot read.</b> Paste a link and nothing happens, because reading an article is a job for an AI and this app has no key of its own.</li>
+                <li><b>It cannot remember.</b> Add clues and refresh the page. Gone. They were only ever in your browser.</li>
+                <li><b>It cannot be shared.</b> Publishing a report means saving it somewhere first, and there is nowhere yet.</li>
+              </ol>
               <p>Those three gaps are the session. You are going to close all of them.</p>
             </div>
-
-            <h3>The soundtrack</h3>
-            <p>
-              Every investigation needs one. Ours is called <em>{TRACK}</em>, which is
-              roughly how long they were inside, and roughly how long you get.
-            </p>
-            <a className="soundtrack" href={SOUNDTRACK} target="_blank" rel="noreferrer">
-              {TRACK} &middot; on Suno
-            </a>
 
             <h3>Sources</h3>
             <p className="sources">
