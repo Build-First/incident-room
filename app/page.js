@@ -239,46 +239,38 @@ export default function LeDossier() {
             <h2 className="section">Your mission</h2>
             <p className="kicker">Affaire Apollon &middot; still open</p>
 
-            <p>
-              In October 2025, two men rode a furniture lift up to a first-floor
-              balcony of the Louvre, broke through a window into the Apollo Gallery,
-              cut open two display cases and left a few minutes later with eight
-              pieces of crown jewellery worth around &euro;88 million. It was the
-              middle of the morning. The museum was open.
+            <p className="lede-noir">
+              October 2025. A Sunday morning, doors open, the public already inside.
+              Two men went up the outside of the Louvre, came in through a window,
+              and were gone again in about seven minutes.
             </p>
-            <p>
-              Both men are in custody. Both have talked. <b>Neither will say who sent
-              them.</b>
+            <p className="lede-noir">
+              They took the crown jewels with them.
             </p>
 
-            <h3>Established, so don&rsquo;t spend your eight minutes on it</h3>
-            <ul className="rules">
-              <li>They got in via a furniture lift and a first-floor window, in daylight, with the museum open.</li>
-              <li>Eight pieces were taken: tiaras, a brooch, necklaces, earrings.</li>
-              <li>A gem-encrusted crown associated with Empress Eug&eacute;nie was dropped during the escape and badly damaged.</li>
-              <li>They say they were hired two or three days beforehand and shown a video filmed inside the gallery.</li>
-              <li>They say they were promised somewhere between &euro;15,000 and &euro;25,000 each.</li>
-              <li>The Louvre&rsquo;s president resigned in February 2026 after an inquiry found systemic failures.</li>
-            </ul>
+            <p>
+              Both men are in custody now. Both have talked. <b>Neither of them will
+              say who sent them.</b>
+            </p>
 
-            <h3>What nobody has established</h3>
+            <h3>What you&rsquo;re looking for</h3>
             <div className="missing">
               <p>
-                <b>Who commissioned it.</b> Both men say they were working for a
-                client they refuse to name, out of fear for their families. One says
-                he was told only that the target was a jewellery workshop. Investigators
-                have <em>not</em> confirmed that either man was acting on anyone&rsquo;s
-                behalf, and the Paris prosecutor has described them as petty criminals
-                rather than organised professionals.
+                How they got in, what they took and what they dropped on the way out
+                are all a matter of public record. You&rsquo;ll find that in ninety
+                seconds. It isn&rsquo;t the case.
               </p>
-              <p><b>Where the jewellery is now.</b> Neither man claims to know.</p>
+              <p>
+                <b>The case is who ordered it.</b> Both men say they were working for
+                a client. Neither will name him. Investigators have never confirmed
+                there was a client at all, and the prosecutor thinks they were petty
+                criminals rather than professionals.
+              </p>
+              <p>
+                So: was there a mastermind, and what does the evidence actually
+                support? That&rsquo;s what goes in your report.
+              </p>
             </div>
-
-            <p>
-              <b>That is your case.</b> Not what happened, which is largely a matter of
-              record. Who ordered it, whether there was anyone to order it, and what
-              the evidence will actually support.
-            </p>
 
             <h3>How to play</h3>
             <ol className="rules">

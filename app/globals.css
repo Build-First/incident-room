@@ -205,3 +205,7 @@ select.status {
 .published .back { display: inline-block; margin-top: 2rem; color: var(--brass); text-decoration: none; font-size: 0.9rem; }
 .published .back:hover { text-decoration: underline; }
 .about .sources { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+.about .lede-noir {
+  font-family: ui-serif, Georgia, serif; font-size: clamp(1.05rem, 1.9vw, 1.35rem);
+  line-height: 1.5; color: var(--paper); margin: 0 0 0.9rem;
+}
