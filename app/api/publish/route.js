@@ -1,20 +1,30 @@
-// "Publish this report" calls this. It does nothing yet, on purpose.
+// "Publish this report" calls this.
 //
-// To give a report its own link you have to save it somewhere first, and there
-// is nowhere yet. Once there is a database, this route saves the report, gets
-// back an id, and hands back { id } so the page can send you to /rapport/<id>.
-export async function POST(request) {
-  await request.json();
+// It saves the report text and hands back { id }, which the page turns into
+// /report/<id>. That link is the whole reason any of this needed a database:
+// it works on somebody else's phone, in a week, with your laptop shut.
+//
+// Only the text is saved, not the clues it came from. That is deliberate. The
+// report is a snapshot of what you believed when you filed it. Re-mark a clue
+// tomorrow and this link still says what you sent, which is what a case file
+// is for.
+import { getDb, NO_DB, dbError } from "../db";
 
-  return Response.json(
-    {
-      error:
-        "Nowhere to put it.\n\n" +
-        "Sending someone a link means the report has to exist somewhere other " +
-        "than this browser tab. Right now it only exists on your screen, so the " +
-        "moment you close it, there is nothing at the other end of the link.\n\n" +
-        "A report needs saving before it can be shared. That is a database.",
-    },
-    { status: 501 }
-  );
+export async function POST(request) {
+  const db = getDb();
+  if (!db) return Response.json({ error: NO_DB }, { status: 501 });
+
+  const { report } = await request.json();
+  if (!report || !String(report).trim()) {
+    return Response.json({ error: "There is no report to publish yet." }, { status: 400 });
+  }
+
+  const { data, error } = await db
+    .from("reports")
+    .insert({ body: String(report) })
+    .select("id")
+    .single();
+
+  if (error) return Response.json({ error: dbError(error, "file that report") }, { status: 502 });
+  return Response.json({ id: data.id });
 }

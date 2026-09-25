@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const STATUSES = ["Unverified", "Corroborated", "Dead end", "Key evidence"];
 const SOUNDTRACK = "https://suno.com/song/c51ec285-50d8-4657-aef6-4f6144423f94";
@@ -26,9 +26,12 @@ export function CaseFile({ text }) {
 }
 
 export default function LeDossier() {
-  // Every clue you add lives in this one variable. This variable lives in the
-  // browser's memory, which lasts exactly as long as the page does. Sprint 1.
+  // This variable still lives in the browser's memory and still dies with the
+  // page. What changed is that it is no longer the only copy. It is now a view
+  // of the clues table, filled from it on load and written back on every
+  // change. Close the tab and the board is still there.
   const [clues, setClues] = useState([]);
+  const [loadError, setLoadError] = useState("");
 
   const [tab, setTab] = useState("dossier");
   const [what, setWhat] = useState("");
@@ -41,22 +44,81 @@ export default function LeDossier() {
   const [copied, setCopied] = useState(false);
   const audio = useRef(null);
 
+  // Runs once when the page opens: go and get the board. This one effect is the
+  // difference between the app you started with and this one.
+  useEffect(() => {
+    fetch("/api/clues")
+      .then((r) => r.json())
+      .then((data) => (data.clues ? setClues(data.clues) : setLoadError(data.error)))
+      .catch((e) => setLoadError(`The board could not be loaded.\n\n${e.message}`));
+  }, []);
+
   function toggleTrack() {
     const el = audio.current;
     if (!el) return;
     if (el.paused) { el.play(); setPlaying(true); } else { el.pause(); setPlaying(false); }
   }
 
-  function addClue(event) {
-    event.preventDefault();
-    if (!what.trim()) return;
-    setClues([...clues, newClue(what, source || "unattributed")]);
-    setWhat("");
-    setSource("");
+  // Everything that changes a clue goes through here: send it to the database
+  // first, and only believe it once the database says so. The ids now come back
+  // from Postgres rather than being invented in the browser, which is why this
+  // waits for the answer instead of guessing.
+  async function saveClues(incoming) {
+    const response = await fetch("/api/clues", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ clues: incoming }),
+    });
+    const data = await response.json();
+    if (data.clues) {
+      setClues((current) => [...current, ...data.clues]);
+      return true;
+    }
+    setTab("rapport");
+    setReport({ stub: true, text: data.error });
+    return false;
   }
 
-  function newClue(text, from) {
-    return { id: crypto.randomUUID(), what: text.trim(), source: from.trim(), status: "Unverified" };
+  async function addClue(event) {
+    event.preventDefault();
+    if (!what.trim()) return;
+    setBusy("add");
+    const saved = await saveClues([{ what: what.trim(), source: source.trim() || "unattributed" }]);
+    if (saved) {
+      setWhat("");
+      setSource("");
+    }
+    setBusy("");
+  }
+
+  async function setStatus(id, status) {
+    // Move the board now and tell the database after. If the write fails the
+    // clue snaps back, so what you see is never a change that did not happen.
+    const before = clues;
+    setClues(clues.map((c) => (c.id === id ? { ...c, status } : c)));
+    const response = await fetch(`/api/clues/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
+    });
+    if (!response.ok) {
+      setClues(before);
+      const data = await response.json();
+      setTab("rapport");
+      setReport({ stub: true, text: data.error });
+    }
+  }
+
+  async function discard(id) {
+    const before = clues;
+    setClues(clues.filter((c) => c.id !== id));
+    const response = await fetch(`/api/clues/${id}`, { method: "DELETE" });
+    if (!response.ok) {
+      setClues(before);
+      const data = await response.json();
+      setTab("rapport");
+      setReport({ stub: true, text: data.error });
+    }
   }
 
   async function extractFromLink(event) {
@@ -71,8 +133,12 @@ export default function LeDossier() {
     });
     const data = await response.json();
     if (data.clues) {
-      setClues([...clues, ...data.clues.map((c) => newClue(c.what, c.source || link.trim()))]);
-      setLink("");
+      // Claude read the article, and now the clues it found go the same way a
+      // typed one does: into the database first, onto the board second.
+      const saved = await saveClues(
+        data.clues.map((c) => ({ what: c.what, source: c.source || link.trim() }))
+      );
+      if (saved) setLink("");
     } else {
       setTab("rapport");
       setReport({ stub: true, text: data.error });
@@ -154,7 +220,9 @@ export default function LeDossier() {
               <form className="row" onSubmit={addClue}>
                 <input value={what} onChange={(e) => setWhat(e.target.value)} placeholder="What we know" aria-label="What we know" />
                 <input value={source} onChange={(e) => setSource(e.target.value)} placeholder="Where it came from" aria-label="Where it came from" />
-                <button className="btn" type="submit">Add clue</button>
+                <button className="btn" type="submit" disabled={busy === "add"}>
+                  {busy === "add" ? "Saving…" : "Add clue"}
+                </button>
               </form>
             </div>
 
@@ -177,6 +245,8 @@ export default function LeDossier() {
               ))}
             </div>
 
+            {loadError && <div className="out stub">{loadError}</div>}
+
             {shown.length === 0 ? (
               <p className="empty">
                 {clues.length === 0
@@ -194,16 +264,14 @@ export default function LeDossier() {
                     <select
                       className="status"
                       value={clue.status}
-                      onChange={(e) =>
-                        setClues(clues.map((c) => (c.id === clue.id ? { ...c, status: e.target.value } : c)))
-                      }
+                      onChange={(e) => setStatus(clue.id, e.target.value)}
                       aria-label="Status"
                     >
                       {STATUSES.map((s) => (
                         <option key={s}>{s}</option>
                       ))}
                     </select>
-                    <button className="btn quiet" onClick={() => setClues(clues.filter((c) => c.id !== clue.id))}>
+                    <button className="btn quiet" onClick={() => discard(clue.id)}>
                       Discard
                     </button>
                   </li>
@@ -308,14 +376,14 @@ export default function LeDossier() {
               <li><b>Key evidence</b><span>True, and it changes the picture.</span></li>
             </ul>
 
-            <h3>Three things this app can&rsquo;t do yet</h3>
+            <h3>Three things this app couldn&rsquo;t do</h3>
             <div className="missing">
               <ol className="rules">
-                <li><b>It can&rsquo;t read.</b> Paste a link and nothing happens. Reading an article is a job for an AI, and this app has no key of its own.</li>
-                <li><b>It can&rsquo;t remember.</b> Add clues and refresh the page. Gone. They were only ever in your browser.</li>
-                <li><b>It can&rsquo;t share.</b> Publishing a report means saving it somewhere first, and there is nowhere yet.</li>
+                <li><b>It couldn&rsquo;t read.</b> Paste a link and nothing happened. Reading an article is a job for an AI, and the app had no key of its own. It has one now, and the key sits on the server where nobody can lift it.</li>
+                <li><b>It couldn&rsquo;t remember.</b> Add clues, refresh, gone. They were only ever in your browser. Now every clue goes into a table first and the board reads back from it.</li>
+                <li><b>It couldn&rsquo;t share.</b> Publishing a report meant saving it somewhere, and there was nowhere. Now a filed report has an address you can send to somebody who will never open your laptop.</li>
               </ol>
-              <p>Those three gaps are the session, <b>in that order</b>. You are going to close all of them.</p>
+              <p>Those three gaps were the session, <b>in that order</b>. You closed all of them.</p>
             </div>
 
             <h3>Sources</h3>
