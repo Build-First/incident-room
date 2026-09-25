@@ -69,7 +69,7 @@ export default function LeDossier() {
       body: JSON.stringify({ report: report.text }),
     });
     const data = await response.json();
-    if (data.id) window.location.href = `/rapport/${data.id}`;
+    if (data.id) window.location.href = `/report/${data.id}`;
     else setReport({ stub: true, text: data.error });
     setBusy("");
   }
@@ -113,13 +113,13 @@ export default function LeDossier() {
 
       <nav>
         <button onClick={() => setTab("dossier")} aria-current={tab === "dossier"}>
-          Le dossier {clues.length > 0 && `(${clues.length})`}
+          Evidence board {clues.length > 0 && `(${clues.length})`}
         </button>
         <button onClick={() => setTab("rapport")} aria-current={tab === "rapport"}>
-          Le rapport
+          The report
         </button>
         <button onClick={() => setTab("apropos")} aria-current={tab === "apropos"}>
-          À propos
+          How this works
         </button>
       </nav>
 
@@ -206,7 +206,7 @@ export default function LeDossier() {
                   : `${solidCount} clue${solidCount === 1 ? "" : "s"} will go in. Unverified clues and dead ends stay out.`}
               </p>
               <button className="btn" onClick={writeReport} disabled={busy === "report"}>
-                {busy === "report" ? "Writing…" : "Établir le rapport"}
+                {busy === "report" ? "Writing…" : "Write the report"}
               </button>
             </div>
             {report && (

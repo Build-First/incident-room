@@ -12,7 +12,7 @@ export default async function PublishedReport({ params }) {
 
   return (
     <main className="published">
-      <p className="stamp">Dossier &middot; Affaire Apollon</p>
+      <p className="stamp">Le Dossier &middot; Affaire Apollon</p>
       <h1>No report at this address</h1>
       <p className="lede">
         Someone sent you a link to report <code>{id}</code>, and there is nothing
