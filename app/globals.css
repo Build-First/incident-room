@@ -141,12 +141,16 @@ select.status {
 /* ---------- About ---------- */
 .about p { color: #cfcde0; }
 .about h3 { font-family: ui-serif, Georgia, serif; font-size: 1.15rem; margin: 2rem 0 0.4rem; letter-spacing: 0.02em; }
-.rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; counter-reset: r; }
-.rules li { display: grid; grid-template-columns: auto 1fr; gap: 0.9rem; align-items: baseline; color: #cfcde0; }
+.rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.8rem; counter-reset: r; }
+/* Hanging indent rather than a grid: a grid row would treat a bold lead-in and
+   the sentence after it as two separate cells and fling them apart. */
+.rules li { position: relative; padding-left: 2.6rem; color: #cfcde0; line-height: 1.6; }
 .rules li::before {
   counter-increment: r; content: counter(r, decimal-leading-zero);
+  position: absolute; left: 0; top: 0.28em;
   font-family: ui-monospace, Menlo, monospace; font-size: 0.72rem; color: var(--brass); letter-spacing: 0.1em;
 }
+.rules li b { color: var(--paper); }
 .statuses { display: grid; gap: 0.5rem; margin: 0.6rem 0 0; padding: 0; list-style: none; }
 .statuses li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 0.8rem; align-items: baseline; color: #cfcde0; font-size: 0.93rem; }
 .statuses b { font-family: ui-monospace, Menlo, monospace; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; }
