@@ -118,8 +118,8 @@ export default function LeDossier() {
         <button onClick={() => setTab("rapport")} aria-current={tab === "rapport"}>
           The report
         </button>
-        <button onClick={() => setTab("apropos")} aria-current={tab === "apropos"}>
-          How this works
+        <button onClick={() => setTab("mission")} aria-current={tab === "mission"}>
+          Your mission
         </button>
       </nav>
 
@@ -234,64 +234,104 @@ export default function LeDossier() {
           </>
         )}
 
-        {tab === "apropos" && (
+        {tab === "mission" && (
           <div className="about">
-            <h2 className="section">The rules of the game</h2>
-            <p className="kicker">How this works</p>
+            <h2 className="section">Your mission</h2>
+            <p className="kicker">Affaire Apollon &middot; still open</p>
 
             <p>
-              In October 2025 someone walked into the Louvre in broad daylight and walked
-              back out again a few minutes later. You are the investigators. This is your
-              evidence board.
+              In October 2025, two men rode a furniture lift up to a first-floor
+              balcony of the Louvre, broke through a window into the Apollo Gallery,
+              cut open two display cases and left a few minutes later with eight
+              pieces of crown jewellery worth around &euro;88 million. It was the
+              middle of the morning. The museum was open.
+            </p>
+            <p>
+              Both men are in custody. Both have talked. <b>Neither will say who sent
+              them.</b>
+            </p>
+
+            <h3>Established, so don&rsquo;t spend your eight minutes on it</h3>
+            <ul className="rules">
+              <li>They got in via a furniture lift and a first-floor window, in daylight, with the museum open.</li>
+              <li>Eight pieces were taken: tiaras, a brooch, necklaces, earrings.</li>
+              <li>A gem-encrusted crown associated with Empress Eug&eacute;nie was dropped during the escape and badly damaged.</li>
+              <li>They say they were hired two or three days beforehand and shown a video filmed inside the gallery.</li>
+              <li>They say they were promised somewhere between &euro;15,000 and &euro;25,000 each.</li>
+              <li>The Louvre&rsquo;s president resigned in February 2026 after an inquiry found systemic failures.</li>
+            </ul>
+
+            <h3>What nobody has established</h3>
+            <div className="missing">
+              <p>
+                <b>Who commissioned it.</b> Both men say they were working for a
+                client they refuse to name, out of fear for their families. One says
+                he was told only that the target was a jewellery workshop. Investigators
+                have <em>not</em> confirmed that either man was acting on anyone&rsquo;s
+                behalf, and the Paris prosecutor has described them as petty criminals
+                rather than organised professionals.
+              </p>
+              <p><b>Where the jewellery is now.</b> Neither man claims to know.</p>
+            </div>
+
+            <p>
+              <b>That is your case.</b> Not what happened, which is largely a matter of
+              record. Who ordered it, whether there was anyone to order it, and what
+              the evidence will actually support.
             </p>
 
             <h3>How to play</h3>
             <ol className="rules">
-              <li>Put everything the room remembers onto the board. Do not check it first.</li>
-              <li>Hand it a news article and let it pull the facts out on its own.</li>
-              <li>Work out which of them actually hold up, and mark each one.</li>
-              <li>When the board is solid, have it write the report from the evidence that survived.</li>
+              <li>Find everything you can and put all of it on the board. Do not filter as you go.</li>
+              <li>Hand it an article and let it pull the facts out on its own.</li>
+              <li>Work out which claims hold up, and mark each one.</li>
+              <li>Have it write the report from the evidence that survived.</li>
             </ol>
 
             <h3>What the statuses mean</h3>
             <ul className="statuses">
               <li><b>Unverified</b><span>Somebody said it. Nobody has checked it. Everything starts here.</span></li>
               <li><b>Corroborated</b><span>A second, independent source says the same thing.</span></li>
-              <li><b>Dead end</b><span>Checked, and it turned out not to be true. Keep it, don&rsquo;t delete it.</span></li>
+              <li><b>Dead end</b><span>Checked, and it did not hold up. Keep it, don&rsquo;t delete it.</span></li>
               <li><b>Key evidence</b><span>True, and it changes the picture.</span></li>
             </ul>
 
             <h3>Why everything starts Unverified</h3>
             <p>
-              Half of what a room confidently remembers about a news story turns out to be
-              wrong. That is not a flaw in the room, it is how memory works. So nothing on
-              this board is treated as true until something else says so too, and the report
-              at the end is built only from what survived.
+              This case is a good argument for it. Early reporting carried numbers and
+              details that later changed. The two accounts given to investigators do
+              not entirely agree with each other. And a claim repeated in forty
+              headlines is still one claim, from one source, forty times.
+            </p>
+            <p>
+              So nothing here is treated as true until something independent says so
+              too, and the report at the end is built only from what survived that.
             </p>
 
-            <h3>Two things this app cannot do yet</h3>
+            <h3>Three things this app cannot do yet</h3>
             <div className="missing">
-              <p>
-                <b>It forgets everything.</b> Add some clues and refresh the page. They are
-                gone, because they were only ever in your browser&rsquo;s memory and nobody
-                ever told the app where to put them.
-              </p>
-              <p>
-                <b>It cannot read or write anything.</b> Both the article reader and the
-                report writer need an AI on the other end, and an AI needs a key that says
-                who is asking. This app does not have one.
-              </p>
-              <p>Those two gaps are the session. You are going to close them.</p>
+              <p><b>It cannot read.</b> Paste a link and nothing happens, because reading an article is a job for an AI and this app has no key of its own.</p>
+              <p><b>It cannot remember.</b> Add clues and refresh the page. Gone. They were only ever in your browser.</p>
+              <p><b>It cannot be shared.</b> Publishing a report means saving it somewhere first, and there is nowhere yet.</p>
+              <p>Those three gaps are the session. You are going to close all of them.</p>
             </div>
 
             <h3>The soundtrack</h3>
             <p>
               Every investigation needs one. Ours is called <em>{TRACK}</em>, which is
-              also roughly how long they were inside, and roughly how long you get.
+              roughly how long they were inside, and roughly how long you get.
             </p>
             <a className="soundtrack" href={SOUNDTRACK} target="_blank" rel="noreferrer">
               {TRACK} &middot; on Suno
             </a>
+
+            <h3>Sources</h3>
+            <p className="sources">
+              Details above are drawn from reporting by Le Monde and the Guardian,
+              July 2026, and from the Paris prosecutor&rsquo;s statements of November 2025.
+              The two men in custody have been charged, not convicted. This is a
+              training exercise, not an investigation.
+            </p>
 
             <img className="evidence-art" src="/evidence.jpg" alt="An empty display case, lit from above" />
           </div>

@@ -204,3 +204,4 @@ select.status {
 .published .missing { border-left: 3px solid var(--red); padding-left: 1.1rem; color: #cfcde0; }
 .published .back { display: inline-block; margin-top: 2rem; color: var(--brass); text-decoration: none; font-size: 0.9rem; }
 .published .back:hover { text-decoration: underline; }
+.about .sources { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
