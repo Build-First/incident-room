@@ -6,6 +6,25 @@ const STATUSES = ["Unverified", "Corroborated", "Dead end", "Key evidence"];
 const SOUNDTRACK = "https://suno.com/song/c51ec285-50d8-4657-aef6-4f6144423f94";
 const TRACK = "The 7 Minute Hack";
 
+// The report is the thing they send somebody, so it gets to look like a
+// document. Shared with the published page at /report/[id].
+export function CaseFile({ text }) {
+  return (
+    <article className="casefile">
+      <span className="cf-stamp">Confidentiel</span>
+      <div className="cf-head">
+        <p>Dossier &middot; Affaire Apollon</p>
+        <p className="cf-sub">Louvre &middot; Octobre 2025</p>
+      </div>
+      <div className="cf-body">{text}</div>
+      <div className="cf-foot">
+        <p className="cracked">You cracked the case and deployed your first app online!</p>
+        <p className="brand">Build First</p>
+      </div>
+    </article>
+  );
+}
+
 export default function LeDossier() {
   // Every clue you add lives in this one variable. This variable lives in the
   // browser's memory, which lasts exactly as long as the page does. Sprint 1.
@@ -206,16 +225,23 @@ export default function LeDossier() {
                   : `${solidCount} clue${solidCount === 1 ? "" : "s"} will go in. Unverified clues and dead ends stay out.`}
               </p>
               <button className="btn" onClick={writeReport} disabled={busy === "report"}>
-                {busy === "report" ? "Writing…" : "Write the report"}
+                {busy === "report" ? "Generating…" : "Generate the report"}
               </button>
             </div>
             {report && (
               <>
-                <div className={report.stub ? "out stub" : "out"}>{report.text}</div>
+                {report.stub ? (
+                  <div className="out stub">{report.text}</div>
+                ) : (
+                  <CaseFile text={report.text} />
+                )}
                 {!report.stub && (
-                  <div className="publish-row">
+                  <div className="cf-actions">
                     <button className="btn" onClick={publish} disabled={busy === "publish"}>
                       {busy === "publish" ? "Publishing…" : "Publish, and get a link"}
+                    </button>
+                    <button className="btn quiet" onClick={() => window.print()}>
+                      Download as PDF
                     </button>
                     <button
                       className="btn quiet"
@@ -282,14 +308,14 @@ export default function LeDossier() {
               <li><b>Key evidence</b><span>True, and it changes the picture.</span></li>
             </ul>
 
-            <h3>Three things this app cannot do yet</h3>
+            <h3>Three things this app can&rsquo;t do yet</h3>
             <div className="missing">
               <ol className="rules">
-                <li><b>It cannot read.</b> Paste a link and nothing happens, because reading an article is a job for an AI and this app has no key of its own.</li>
-                <li><b>It cannot remember.</b> Add clues and refresh the page. Gone. They were only ever in your browser.</li>
-                <li><b>It cannot be shared.</b> Publishing a report means saving it somewhere first, and there is nowhere yet.</li>
+                <li><b>It can&rsquo;t read.</b> Paste a link and nothing happens. Reading an article is a job for an AI, and this app has no key of its own.</li>
+                <li><b>It can&rsquo;t remember.</b> Add clues and refresh the page. Gone. They were only ever in your browser.</li>
+                <li><b>It can&rsquo;t share.</b> Publishing a report means saving it somewhere first, and there is nowhere yet.</li>
               </ol>
-              <p>Those three gaps are the session. You are going to close all of them.</p>
+              <p>Those three gaps are the session, <b>in that order</b>. You are going to close all of them.</p>
             </div>
 
             <h3>Sources</h3>
