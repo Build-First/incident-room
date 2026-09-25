@@ -294,10 +294,10 @@ export default function LeDossier() {
 
             <h3>How to play</h3>
             <ol className="rules">
-              <li>Find everything you can and put all of it on the evidence board.</li>
-              <li>Hand it an article and let it pull the facts out on its own.</li>
-              <li>Work out which claims hold up, and mark each one.</li>
-              <li>Have it write the report from the evidence that survived.</li>
+              <li>Get every clue onto the evidence board.</li>
+              <li>Let it read the articles for you.</li>
+              <li>Mark what holds up.</li>
+              <li>Let it write the report.</li>
             </ol>
 
             <h3>What the statuses mean</h3>
