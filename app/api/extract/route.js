@@ -20,7 +20,7 @@ export async function POST(request) {
         "Reading an article and pulling the facts out of it is a job for Claude, " +
         "and Claude needs a key that says who is asking. Your subscription is yours. " +
         "Your app doesn't have one of its own.\n\n" +
-        "Add a clue by hand for now. This is the second thing you're going to fix.",
+        "Add a clue by hand for now.",
     },
     { status: 501 }
   );
