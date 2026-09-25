@@ -1,7 +1,12 @@
 node_modules
 .next
 .DS_Store
+.vercel
 
 # Anything with a key in it. This line is why your keys stay yours.
 .env
 .env.local
+.env*
+
+# Except the template, which holds the names of the keys and none of the values.
+!.env.example
