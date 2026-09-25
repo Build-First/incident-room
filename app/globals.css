@@ -233,18 +233,18 @@ select.status {
 }
 .cf-head {
   border-bottom: 2px solid #1d1a14; padding-bottom: 0.6rem; margin-bottom: 1.4rem;
-  padding-right: 9rem;
+  padding-right: 10.5rem;
 }
 .cf-head .cf-sub { opacity: 0.65; margin-top: 0.25rem; }
 .cf-head p { margin: 0; font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; }
 .cf-stamp {
-  position: absolute; top: clamp(1.4rem, 4vw, 2.6rem); right: clamp(1rem, 3vw, 2.4rem);
+  position: absolute; top: clamp(2.2rem, 5vw, 3.6rem); right: clamp(1rem, 3vw, 2.4rem);
   border: 3px solid #a8332a; color: #a8332a; border-radius: 4px;
   padding: 0.3rem 0.7rem; font-size: 0.72rem; letter-spacing: 0.2em; font-weight: 700;
   transform: rotate(-11deg); opacity: 0.72; pointer-events: none; text-transform: uppercase;
 }
 .cf-body {
-  white-space: pre-wrap; font-size: clamp(0.82rem, 1.05vw, 0.95rem); line-height: 1.85;
+  white-space: pre-wrap; overflow-wrap: break-word; font-size: clamp(0.82rem, 1.05vw, 0.95rem); line-height: 1.85;
   /* faint typewriter unevenness */
   text-shadow: 0 0 0.6px rgba(29, 26, 20, 0.5);
 }

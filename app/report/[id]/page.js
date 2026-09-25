@@ -23,12 +23,9 @@ export default async function PublishedReport({ params }) {
 
 Somebody sent you a link to a case file that was never saved.
 
-This page is the whole point of deploying: a link you can send to
-somebody who will never open your laptop, showing them the finished
-report and nothing else.
+This page is the whole point of deploying: a link you can send to somebody who will never open your laptop, showing them the finished report and nothing else.
 
-It is empty because publishing a report means SAVING it first, and
-there is nowhere to save it yet.
+It is empty because publishing a report means SAVING it first, and there is nowhere to save it yet.
 
 That is a database, and it is the thing you are about to build.`}
         </div>
