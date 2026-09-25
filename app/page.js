@@ -256,21 +256,15 @@ export default function LeDossier() {
             <h3>What you&rsquo;re looking for</h3>
             <div className="missing">
               <p>
-                How they got in, what they took and what they dropped on the way out
-                are all a matter of public record. You&rsquo;ll find that in ninety
-                seconds. It isn&rsquo;t the case.
+                The break-in is a matter of public record. That isn&rsquo;t the case.
               </p>
               <p>
-                <b>The case is who ordered it.</b> Both men say they were working for
-                a client. Neither will name him. Investigators have never confirmed
-                there was a client at all, and the prosecutor thinks they were petty
-                criminals rather than professionals.
-              </p>
-              <p>
-                So: was there a mastermind, and what does the evidence actually
-                support? That&rsquo;s what goes in your report.
+                <b>The case is who ordered it</b>, and whether there was anyone to
+                order it at all.
               </p>
             </div>
+
+            <p className="lede-noir">Let&rsquo;s sort through the clues together.</p>
 
             <h3>How to play</h3>
             <ol className="rules">
